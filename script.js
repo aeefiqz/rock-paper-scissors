@@ -12,7 +12,7 @@ function getComputerChoice() {
 function playRound(playerSelection,computerSelection) {
     //Play a single round of Rock Paper Scissors and return a string that declares the winner 
     // of the round
-    playerSelection = playerSelection.toLowerCase();
+    // playerSelection = playerSelection.toLowerCase();
     if (playerSelection === computerSelection) {
         return 'Tie';
     }
@@ -44,12 +44,10 @@ function game() {
     let playerScore = 0;
     let computerScore = 0;
 
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = prompt("Enter your selection (Rock, Paper, or Scissors):");
+        
         const computerSelection = getComputerChoice();
         const result = playRound(playerSelection,computerSelection);
 
-        console.log(result);
 
         if (result.includes("Win")) {
             playerScore++;
@@ -59,17 +57,33 @@ function game() {
     }
 
 
-    console.log(`Player score: ${playerScore}`);
-    console.log(`Computer score: ${computerScore}`);
 
-    if (playerScore > computerScore) {
-        console.log("You win the game!");
-    } else if (playerScore < computerScore) {
-        console.log("You lose the game!");
-    } else {
-        console.log("The game is a tie!")
-    }
+//create dom objects for respective buttons (rock,paper and scissors)
+const rockbtn = document.querySelector('.btn-rock');
+const paperbtn = document.querySelector('.btn-paper');
+const scissorsbtn = document.querySelector('.btn-scissors');
 
-}
+rockbtn.addEventListener('click', () => {
+    const computerSelection = getComputerChoice();
+    playRound('rock', computerSelection);
+  });
+  
+paperbtn.addEventListener('click', () => {
+    const computerSelection = getComputerChoice();
+    playRound('paper', computerSelection);
+  });
+  
+scissorsbtn.addEventListener('click', () => {
+    const computerSelection = getComputerChoice();
+    playRound('scissors', computerSelection);
+  });
 
-game();
+
+//create a div for displaying results
+const divResult = document.createElement('div');
+divResult.id = 'result';
+document.body.appendChild(divResult);
+
+//update the contents of results div
+divResult.innerHTML = `<p>Player score: ${playerScore}</p>
+                       <p>Computer score: ${computerScore}</p>`;
